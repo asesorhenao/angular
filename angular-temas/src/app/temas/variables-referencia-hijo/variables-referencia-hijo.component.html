@@ -1,0 +1,7 @@
+<h6>Componente hijo</h6>
+<p *ngIf="mensaje">Mensaje: {{ mensaje }}</p>
+
+
+<div *ngIf="isViewChildren" [ngStyle]="{'background-color': colorCheck ? 'red' : 'blue'}"> 
+  Este es el comonente hijo
+</div>

@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header">Comunicación con servicios componentes lejanos</div>
+  <div class="card-body">
+    Se utilizan servicios para el intercambio de mensajes entre componentes, se tienen 5 componentes (padre, hijos y nietos),
+    La idea es que el servicio funcione como una central de eventos, donde los componentes que quieran reaccionar a un evento se pueda suscribir a través del servicio
+    esto permite tener comunicación entre varios componentes, en el servicio tener una o varias variables que se pueden consumir en cualquier parte de la aplicación  
+    <h5>Componente padre</h5>
+
+    <p>Esto es lo escrito en el textobox:</p>
+    <p>{{ comunicationService.mensaje }}</p>
+    <div class="contenido">
+      <app-hijo-a></app-hijo-a>
+      <app-hijo-b></app-hijo-b>
+    </div>
+</div>
+</div>

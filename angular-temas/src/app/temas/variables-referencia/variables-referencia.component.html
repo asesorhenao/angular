@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-header">Variables de referencia de plantilla</div>
+  <div class="card-body">
+    Nos ayuda a porder hacer referencia a un elemento de una plantilla. Este elemento típicamente será un elemento del DOM o un componente.
+    Ejemplo: input type="file" #uploader 
+    <p>Ejemplo: Botón para carga de archivo</p>
+    <input type="file" style="display: none;" #uploader>
+    <button class="btn btn-primary" (click)="uploader.click()">Cargar archivo</button>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">ViewChild: Referenciando un componente desde una clase</div>
+  <div class="card-body">
+    Podemos hacer referencia a elementos de la plantilla desde la clase del componente, se pueden utilizar dos formas:
+    <p>
+      Ejemplo 1: Utilizando una variable de referencia de plantilla. Ejecutar una función desde el componente hijo al componente padre.
+      Seria <br>
+      @ViewChild('hijo'), y la referencia en la etiquita del componente <br>
+      app-variables-referencia-hijo #hijo.
+      <br>
+      Para este caso se utiliza el tipo del objeto
+    </p>
+    Escribe algo:
+    <input type="text" class="form-control" [(ngModel)]="texto">
+    <span style="color: red;">{{ mensajeDeError }}</span>
+    <br>
+    <button class="btn btn-primary" (click)="enviarMensaje()">Enviar</button>
+    
+    <app-variables-referencia-hijo [isViewChildren]="false"></app-variables-referencia-hijo>
+
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">ViewChildren: Referenciando varios componentes desde una clase</div>
+  <div class="card-body">
+    Con ViewChildren podemos agarrar una conjunto de instancias de un componente de una plantilla
+    <p>Ejemplo: Tendremos dos componentes padre e hijo, el padre con ngFor podra crear n componentes hijos</p>
+    <h6>Componente padre</h6>
+    <button class="btn btn-primary" (click)="agregar()">Agregar</button>
+    <button class="btn btn-primary" (click)="remover()">Remover</button>
+    <button class="btn btn-primary" (click)="voltearColores()">Volterar Colores</button>
+    <p>Selecione el componente: </p>
+    <select #selectComponentes>
+      <option *ngFor="let option of arr; let index = index" [value]="index + 1">componente {{index+1}}</option>
+    </select>
+    <button class="btn btn-success" (click)="voltearColor(selectComponentes.value)">Voltear Color</button>
+    <app-variables-referencia-hijo *ngFor="let i of arr" [isViewChildren]="true"></app-variables-referencia-hijo>
+  </div>
+</div>

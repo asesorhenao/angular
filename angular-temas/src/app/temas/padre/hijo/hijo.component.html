@@ -1,0 +1,8 @@
+<h6>Componente Hijo</h6>
+<p *ngIf="textoHijo">aquí se muestra el texto en el componente hijo: {{ textoHijo }}</p>
+<p *ngIf="textoHijogs">aquí se muestra el texto en el componente hijo GyS: {{ textoHijogs }}</p>
+
+<div *ngIf="hp">
+  <input type="text" (input)="textoHp = $event.target.value">
+  <button (click)="btnEnviar()">Enviar</button>
+</div>

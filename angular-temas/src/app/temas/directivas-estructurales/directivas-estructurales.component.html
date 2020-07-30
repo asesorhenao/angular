@@ -1,0 +1,74 @@
+<div class="card">
+    <div class="card-header">ngIf</div>
+    <div class="card-body">
+      <div class="form-group">
+        <input id="chbIf" type="checkbox" 
+        (change)="isChecked = !isChecked"
+        >
+        Mostrar contenido
+    </div>
+      <div *ngIf="isChecked">
+        El checkbox esta seleccionado
+      </div>
+    </div>
+</div>
+<div class="card">
+  <div class="card-header">ngFor</div>
+  <div class="card-body">
+    <p>Ejemplo 1: utilizando ngFor</p>
+    <ul>
+      <li *ngFor="let nombre of nombres">{{ nombre }}</li>
+    </ul>  
+    <p>Ejemplo 2: ngFor e índices</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Indice</th>
+          <th>Nombre</th>
+          <th>Edad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let persona of personas; let indice = index">
+          <td>{{ indice}}</td>
+          <td>{{ persona.nombre }}</td>
+          <td>{{ persona.edad }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Ejemplo 3: ngFor variables de contexto</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Indice</th>
+          <th>Nombre</th>
+          <th>Edad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let persona of personas; let indice = index; let par = even; let impar = odd" [ngClass]="{'par': par, 'impar': impar}">
+          <td>{{ indice}}</td>
+          <td>{{ persona.nombre }}</td>
+          <td>{{ persona.edad }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">ngSwitch</div>
+  <div class="card-body">
+    Seleccione una opción
+    <select (change)="opcion=$event.target.value">
+      <option>--Seleccione una opción--</option>
+      <option value="ASP.NET">ASP.NET</option>
+      <option value="Angular">Angular</option>
+    </select>  
+
+    <div [ngSwitch]="opcion">
+      <div *ngSwitchDefault>Debe escoger una opción</div>
+      <div *ngSwitchCase="'ASP.NET'">Este es ASP.NET</div>
+      <div *ngSwitchCase="'Angular'">Este es Angular</div>
+    </div>
+  </div>
+</div>

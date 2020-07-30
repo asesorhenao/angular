@@ -1,0 +1,85 @@
+<div class="card">
+  <div class="card-header">Interpolación</div>
+  <div class="card-body">
+    <p>Consiste en crear texto dinámico en el HTML</p>
+    <ul>
+      <li>El valor de la dirección es {{ direccion }}</li>
+      <li>El nombre de la persona es {{ persona.nombre }} {{ persona.apellido }}</li>
+    </ul>  
+    <p>El valor duplicado es {{ duplicarTexto('Necesito Empleo') }}</p>
+    <p>
+      Usando el operador de navegación segura ?, la propiedad persona 2 no existe
+      Entonces {{ persona }} No genera error en la consola, pero en angular  9 no funcionó
+    </p>
+    <p>
+      Podemos generar expresiones complejas, por ejemplo concatenar texo con función
+      {{ 'Texto concatenado con función ' + duplicarTexto('Texto') }}
+    </p> 
+    <p #miparrafo>Este es un párrafo</p>
+    <input type="text" class="form-control" value="{{miparrafo.innerHTML}}">
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">Binding</div>
+  <div class="card-body">
+    <button class="btn btn-primary" (click)="incrementar()">Incrementar Contador</button>
+    Contador: {{ cantidad }}
+    <p>Otros eventos y objeto especial $event</p>
+    <input type="text" class="form-control" (input)="onTextboxInput($event)" placeholder="Escriba Texto Aquí"> <br>
+    Texto escrito: {{ textoEscrito }}
+    <p>Bindings de Propiedad, ejemplo [src]</p>
+    <select name="selectImage" id="selecImage" class="form-control" (change)="changeImage($event)">
+      <option value="https://i0.wp.com/www.aipbarcelona.com/wp-content/uploads/2016/08/Curso-de-ASP.NET_.png">.NET</option>
+      <option value="https://cms-assets.tutsplus.com/uploads/users/12/posts/18754/preview_image/angular-js.png">Angular</option>
+    </select>
+    <br>
+    <img [src]="imageURL">
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">Directiva de Atributo NgClass</div>
+  <div class="card-body">
+    <p>Ejemplo 1: Podemos agregar dinámicamente una o más clases</p>
+    <input id="chb" type="checkbox" (change)="estaCheckeado = !estaCheckeado">
+    Cambiar Clases
+    <div class="cuadrado" [ngClass]="{ secundario: estaCheckeado}"></div>
+    <div class="cuadrado" [ngClass]="{ 'secundario cuadrado-grande': estaCheckeado }"></div>  
+    <p>Ejemplo 2: Múltiples condiciones para distintas clases</p>
+    <input id="chb2" type="checkbox" (change)="colorCheck = !colorCheck">
+    Cambiar Color
+    <input id="chb3" type="checkbox" (change)="tamanoCheck = !tamanoCheck">
+    Cambiar Tamaño
+    <div class="cuadrado" [ngClass]="{ secundario: colorCheck}"></div>
+    <div class="cuadrado" [ngClass]="{ 'secundario': colorCheck, 'cuadrado-grande': tamanoCheck }"></div>  
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">Directiva de Atributo NgStyle</div>
+  <div class="card-body">
+    <input id="chb4" type="checkbox" (change)="colorCheck2 = !colorCheck2">
+    Cambiar Color
+    <input id="num" type="number" (input)="anchoAltura = $event.target.value" value="100">
+    Cambiar Tamaño
+    <div class="cuadrado" [ngStyle]="{ 'background-color': colorCheck2 ? 'blue': 'red'}"></div>
+    <div class="cuadrado" [ngStyle]="{ 'background-color': colorCheck2 ? 'blue': 'red', 'width': anchoAltura + 'px', 'height': anchoAltura + 'px' }"></div>      
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">Directiva de Atributo NgModel</div>
+  <div class="card-body">
+    Tenemos una forma sencilla de crear bindig de dos vías
+    se hace una sincronización automática de un control de formulario con una variable
+    se actualizan los dos.
+    Para poder utilizar ngModel se debe importar FormsModule
+    <p>Ejemplo 1: Para hacer binding de dos vías (two-way binding)</p>
+    <div class="form-group">
+      <label for="text">Escribe algo:</label>
+      <input type="text" class="form-control" [(ngModel)]="texto">
+      <span>El valor de la variable es: <strong>{{ texto }}</strong></span>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" (click)="hacerMayuscula()">MAYÚSCULA</button>
+      <button class="btn btn-danger" (click)="hacerMinuscula()">minúscula</button>
+    </div>
+  </div>
+</div>

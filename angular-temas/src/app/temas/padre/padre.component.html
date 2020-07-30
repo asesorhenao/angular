@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-header">Comunicación componente padre e hijo</div>
+  <div class="card-body">
+    <p>Ejemplo 1: Comunicación de Padre a Hijo</p>
+    <h6>Componente padre</h6>
+    <input type="text" (input)="textoPadre = $event.target.value">
+    <app-hijo [textoHijo]="textoPadre" [hp]="false"></app-hijo>
+    <p>Ejemplo 2: Utilizando getters y setters</p> 
+    <h6>Componente padre</h6>
+    <input type="text" (input)="textoPadregs = $event.target.value">
+    <app-hijo [textoHijogs]="textoPadregs" [hp]="false"></app-hijo> 
+  </div>
+</div>
+<div class="card">
+    <div class="card-header">Comunicación componente hijo a padre</div>
+    <div class="card-body">
+        <h6>Componente padre</h6>
+        <span>Mensaje desde el hijo: {{ textoPadreHp }}</span>
+        <app-hijo [hp]="true" (enviar)="recibirMensaje($event)"></app-hijo>
+    </div>
+</div>
