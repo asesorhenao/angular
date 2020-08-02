@@ -19,6 +19,15 @@ import { NietoBComponent } from './temas/padre-servicios/hijo-b/nieto-b/nieto-b.
 import { NietoAComponent } from './temas/padre-servicios/hijo-a/nieto-a/nieto-a.component';
 import { VariablesReferenciaComponent } from './temas/variables-referencia/variables-referencia.component';
 import { VariablesReferenciaHijoComponent } from './temas/variables-referencia-hijo/variables-referencia-hijo.component';
+import { PadreProyeccionComponent } from './temas/padre-proyeccion/padre-proyeccion.component';
+import { HijoProyeccionComponent } from './temas/hijo-proyeccion/hijo-proyeccion.component';
+import { Hijo2ProyeccionComponent } from './temas/hijo2-proyeccion/hijo2-proyeccion.component';
+import { Hijo3ProyeccionComponent } from './temas/hijo3-proyeccion/hijo3-proyeccion.component';
+import { ServiciosComponent } from './temas/servicios/servicios.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from 'src/app/services/auth-interceptor.service';
+import { ServicioPostComponent } from './temas/servicio-post/servicio-post.component';
+import { ServiciosPatchComponent } from './temas/servicios-patch/servicios-patch.component';
 
 @NgModule({
   declarations: [
@@ -34,16 +43,28 @@ import { VariablesReferenciaHijoComponent } from './temas/variables-referencia-h
     NietoBComponent,
     NietoAComponent,
     VariablesReferenciaComponent,
-    VariablesReferenciaHijoComponent
+    VariablesReferenciaHijoComponent,
+    PadreProyeccionComponent,
+    HijoProyeccionComponent,
+    Hijo2ProyeccionComponent,
+    Hijo3ProyeccionComponent,
+    ServiciosComponent,
+    ServicioPostComponent,
+    ServiciosPatchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{ //Acá se configura el servicio de auth-interceptor
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true //Para indicar que podemos utilizar varios interceptores y no uno solo
+  }], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,57 @@
+<ng-container>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>
+          <a 
+            class="btn btn-primary"
+            style="cursor: pointer;"
+            (click)="selectUsuario(user)"
+          >
+          Select
+          </a>
+        </td>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.username }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+<hr>
+<form (ngSubmit)="onSubmit()" *ngIf="model">
+  <div class="form-group">
+    <input 
+      type="text" 
+      class="form-control"
+      placeholder="Name"
+      id="name"
+      required
+      [(ngModel)]="model.name"
+      name="name"
+    >
+  </div>
+  <div class="form-group">
+    <input 
+      type="text" 
+      class="form-control"
+      placeholder="Username"
+      id="username"
+      name="username"
+      [(ngModel)]="model.username"
+    >
+  </div>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">
+      Submit
+    </button>
+  </div>
+</form>
+

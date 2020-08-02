@@ -1,0 +1,138 @@
+<div class="card">
+  <div class="card-header">Servicios</div>
+  <div class="card-body">
+    <p>
+      Es una clase con un proposito bien definido, la idea es que dentro de un Servicio vamos a colocar
+      funcionalidad la cual otras clases y servicios van a poder utilizarla
+    </p>  
+    <p>
+      Una ventaja de utilizar servicios es tener código organizado y reutilizable, el cual siga buenas prácticas de ingenieria de software
+    </p>
+    <p>
+      Un uso tipico es encapsular llamados a un web Api, con los servicios podemos encapsular la capa de comunicación con servicios externos en clases
+      de modo que nuestros componentes no tengan que preocuparse por buscar esta data en un web api, la labor del componente será consumir el servicio el cual se encargara de hacer el llamada al web api. <br>
+      se crea con ng g s services/nombre
+    </p>
+    <h4>Inyección de Dependencias</h4>
+    Cuando una clase A utiliza una clase B, decimos que la clase A depende de la clase B. Es decir, La clase B es una dependencia de la clase A
+    <p>La Inyección de dependencias es un mecanismo por el cual inyectamos las dependencias de una clase</p>
+    <h6>Ejemplo 1: Crear un nuevo componente, inyectar el servicio al componente y colocar un botón en el componente que permite utilizar el servicio desde el componente. Creo la clase primer servicio, en la carpeta servicios</h6>
+    <button class="btn btn-primary" (click)="handleClick()">Llamar el servicio</button>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">Proveedores</div>
+  <div class="card-body">
+    <p>Para que angular pueda inyectar nuestro servicio de forma automática debemos configurar un proveedor</p>
+    <p>Un proveedor es un objeto el cual le dice a Angular cómo obtener o crear una dependencia, es obligatorio registrar una dependencia en un proveedor para que angular pueda resolver dicha dependencia, de no hacerlo puede generar un error</p>
+    <ol> En general hay tres formas de registrar proveedores
+      <li>
+        Metadata: Escuando utilizamos providedIn en el decorador @Injectable, para registrar un proveedor de nuestro servicio, esto hace que nuestro servicio sea un singuelton, significa que se retuliza la misma instancia del servicio para toda la aplicación  
+      </li>
+      <li>
+        En el ngModule: podemos registrar un proveedor a traves del modulo, esto hace que el servicio esté disponible para todos los componentes de dicho módulo, en este caso la misma instancia del servicio será servido a todos los componentes del módulo, se establece en la propiedad providers del decorador del ngModule
+      </li>
+      <li>
+        En el componente: podemos registrar un proveedor, esto provoca que por cada instancia del componente se sirva una nueva instancia del servicio, en este caso el servicio no es un singlenton. se coloca en la propiedad providers del decorador del componente
+      </li>
+    </ol>    
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">HttpClient</div>
+  <div class="card-body">
+    <p>Normalmente nuestras aplicaciones de Angular van a utilizar información que viene de una Web Api, esta información puede estar alojada en una BD (Sql Server, oracle, mysql, entro otros) existen varias maneras de trabajar con peticiones http desde una aplicación web, en angular tenemos un servicio el cuál es el estándar para trabajar peticiones HTTP => httpClient</p>
+    <p>Con el HttpClient podemos realizar peticiones HTTP con distintos métodos HTTP. También podemos configurar las cabecera de nuestras peticiones, el cuerpo de nuestras peticiones y leer las respuestas recibidas del servidor</p>  
+    <p>Lo primero que debemos hacer para utilizar httpClient es importar el módulo en nuestro modulo y lo inyectamos a traves de un constructor</p>
+    <h6>Métodos HTTP</h6>
+    <ul>
+      <li>GET: Sirve para leer información del servidor, si tenemos un componente que maneje usuarios podemos pedir al servidor un listado de los usuarios de nuestra aplicación</li>
+      <li>POST: Sirve par enviar información al servidor, es normal utilizar este método para enviar información al servidor y crear un registro en la BD. Cabe destacar que a traves del POST del cuerpo de la petición HTTP </li>
+      <li>PUT: Sirve para utilizar actualizaciones completas de un recurso, ejemplo, actualizar todos los datos de un usuario</li>
+      <li>PATCH: Sirve para realizar actualizaciones parciales de un recurso, es muy útil, ejemplo: podemos actualizar uno o dos campos de un usuario en vez de actualizarlos todos, esto es eficiente</li>
+      <li>DELETE: Sirve para borrar recursos</li>
+    </ul>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">HTTP GET</div>
+  <div class="card-body">
+    <p>Para este ejemplo utilizamos https://jsonplaceholder.typicode.com/</p>
+    <ol>
+      <li>Se modifica el archivo enviroment.ts, en este archivo colocamos información de la configuración de la aplicación, en este caso la url de nuestro API</li>
+      <li>Utilizamos un modelo para representar la información que el servidor no va a enviar, creamos una interfaz para esto:  ng g i models/user</li>
+      <li>crear la plantilla del componente, y la funcionalidad en la clase del componente, el metodo getUser() va a consumir el servicio para hacer la petición HTTP</li>
+      <li>Creamos el servicio user, ver comentarios en este archivo</li>
+      <li>En el componente consumimos el servicio, lo inyectamos</li>
+      <li>Muy importnte importar HttpClientModules en app.modules</li>
+    </ol>
+    <div class="form-group">
+      Put the user ID:
+      <input type="text" class="form-control" #textId>
+      <button class="btn btn-primary" (click)="getUser(textId.value)">Get user</button>
+    </div>
+    <div class="form-group">
+      <ng-container *ngIf="notFound">
+        User not found
+      </ng-container>
+      <ng-container *ngIf="user">
+        <ul>
+          <li>Id: {{ user.id }}</li>
+          <li>Name: {{ user.name }}</li>
+          <li>Username: {{ user.username }}</li>
+        </ul>
+      </ng-container>
+    </div>
+    <h6>Creando una lista de usuarios</h6>
+    <ng-container *ngIf="users">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Username</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.username }}</td>
+        </tr>
+        </tbody>
+    </table>
+    </ng-container>
+    <h4>Agregando Cabeceras HTTP y Query Strings</h4>  
+    <p>Existen ocaciones en las que se debe colocar algún valor en la cabecera de la petición HTTP, valores como autorización, content type para el tipo de contenido a recibir incluso parámetros personalizados que el Web API requiere, todo se se puede configurar con HttpHeaders</p>
+    <p>Para el ejemplo se van a utilizar dos valores en la cabecera HTTP, los comentarios se encuentran en la clase user.services</p>
+    <p>Con authorization podemos colocar un token con el que se puede identificar un usuario y X-pagination permite navegar un conjunto de páginas</p>
+    <p>Para observar el resultado se inspecciona la página y en network users/ y busca las cabeceras</p>
+    <h4>Interceptando peticiones HTTP - Modificando cabeceras automáticamente</h4>
+    <p>Podemos utilizar http interceptor para interceptar todas las peticiones HTTP realizadas con el HttpClient, esto va a ser útil cuando queramos agregar una cabecera o query string a todas las peticiones las peticios HTTP que se hagan en nuestra aplicación de angular</p>
+    <p>Un caso práctico de esto es cuándo queremos colocar la cabecera authorization en cada peticion HTTP</p>
+    <p>AL final un interceptor HTTP es un servicio, ejemplo, creamos el servicio auth-interceptor para colocar la cabecera authorization en todas nuestas peticiones, luego registramos este servicio en el app.module en providers</p>
+    <h4>Leyendo la cabecera y código de estatus de la respuesta HTTP</h4>
+    <p>El ejemplo se realiza en user.service en el método getUsersWithHeaders()</p>
+    <p>En el onInit de la clase servicios (servicios.component.ts), coloco el código y se puede ver en el body de la respuesta</p>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">Haciendo un HTTP Post</div>
+  <div class="card-body">
+    <p>Este ejemplo se realiza en el servicio user-service y en el componente servicios-post</p>
+    <app-servicio-post></app-servicio-post>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">HTTP PATCH</div>
+  <div class="card-body">
+    <p>Podemos realizar actualizaciones parciales de nuestros recursos, es decir, Nos permite actualizar algunos campos</p>
+    <p>para que funcione debemos enviar al web API un conjunto de instrucciones que indican los campos que queremos actualizar, no enviamos un recurso direcamente sino que enviaremos instrucciones de actualizacion de campos de un recurso <br>
+    Ejemplo: op:"replace", path: "/apellido", value:"Pedro"<br>
+    esto sigue el formato json-patch tal cual definido RFC 6902
+    </p>
+    <p>Utilzamos la libreria que haga este trabajo, se llama fast-json-patch, se instala npm fast-json-patch</p>  
+    <app-servicios-patch></app-servicios-patch>
+  </div>
+</div>
+

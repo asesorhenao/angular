@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-header">Proyección de Contenido</div>
+  <div class="card-body">
+    Podemos inyectar contenido de plantilla de un componente a otro, es como pasar como parametro una plantilla, para esto utlizamos la directiva ngContent en el componente al que se le va a inyectar el contenido  
+    <p>Ejemplo 1: proyectamos contenido al componente hijo</p>
+    <app-hijo-proyeccion>Texto creado en el padre y proyectado en el hijo</app-hijo-proyeccion><br>
+    <app-hijo-proyeccion>En este ejemplo creamos un botón pero la funcionalidad va en el padre <button (click)="mostrarMensaje()">Mostar Alert2</button></app-hijo-proyeccion><br>
+    <app-hijo-proyeccion>
+      Este ejemplo proyecta una imagen desde hijo2 proyección
+      <app-hijo2-proyeccion></app-hijo2-proyeccion>  
+    </app-hijo-proyeccion><br>
+    <p>Ejemplo 2: Proyectar varios contenidos hacia un mismo componente, utilizamos el atributo select del ngContent, proyectamos 3 contenidos</p>
+    <app-hijo3-proyeccion>
+      <ng-container cabecera>Esta es la cabecera</ng-container>
+      <ng-container cuerpo>Esta es el cuerpo</ng-container>
+      <ng-container pie>Esta es el pie</ng-container>
+    </app-hijo3-proyeccion>
+  </div>
+</div>
