@@ -1,0 +1,29 @@
+<h4>Usuarios</h4>
+<ng-container *ngIf="users">
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Usernme</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>
+          <button 
+            class="btn btn-primary"
+            (click)="viewPosts(user.id)"
+          >
+          Ver Post
+          </button>
+        </td>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.username }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
